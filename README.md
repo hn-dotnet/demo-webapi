@@ -1,6 +1,7 @@
 # demo-webapi
 
 Dieses Repository ist für eine Demonstration von WebAPI 2 im Rahmen einer Session mit der .Net Usergroup Heilbronn.
+[Die Veranstaltung findest du hier](http://www.meetup.com/de/dotNet-Usergroup-Heilbronn/events/226520774/)
 
 ## Wer ist die dotNet-Usergroup
 
