@@ -1,0 +1,37 @@
+﻿<div class="row">
+    <div class="col-md-4">
+        <table>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Email</td>
+                    <td>Name</td>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: vm">
+                <tr>
+                    <td data-bind="text: Id"></td>
+                    <td data-bind="text: Email"></td>
+                    <td data-bind="text: Name"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        var vm = {};
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/attendee",
+                success: function (result) {
+                    vm = ko.mapping.fromJS(result);
+                }
+            }).success(function () {
+                ko.applyBindings(vm);
+            });
+        });
+    </script>
+}
