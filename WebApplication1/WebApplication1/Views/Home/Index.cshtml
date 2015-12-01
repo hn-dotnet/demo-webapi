@@ -1,11 +1,27 @@
 ﻿<div class="row">
-    <div class="col-md-4">
-        <table>
-            <thead>
+    <div class="col-md-12">
+
+        <button id="add">Neuen Eintrag</button>
+        <button id="test">Test</button>
+
+        <table style="width: 100%;">
+            <thead style="font-weight: bold; background: rgba(9, 0, 77, 0.2); ">
                 <tr>
-                    <td>ID</td>
-                    <td>Email</td>
-                    <td>Name</td>
+                    <td style="padding: 15px;">ID</td>
+                    <td style="padding: 15px;">Email</td>
+                    <td style="padding: 15px;">Name</td>
+                </tr>
+            </thead>
+            <thead id="n" style="display: none;">
+                <tr>
+                    <td><input type="text" id="n_id" style="width: 100%; max-width: none; padding: 5px; border: none;" placeholder="Hier GUID eintragen" /></td>
+                    <td><input type="text" id="n_email" style="width: 100%; max-width: none; padding: 5px; border: none;" placeholder="Hier Email eintragen" /></td>
+                    <td><input type="text" id="n_name" style="width: 100%; max-width: none; padding: 5px; border: none;" placeholder="Hier Name eintragen" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><button id="save">Speichern</button></td>
                 </tr>
             </thead>
             <tbody data-bind="foreach: vm">
@@ -32,6 +48,42 @@
             }).success(function () {
                 ko.applyBindings(vm);
             });
+
+            $("#add").click(function () {
+                $("#n").show(200);
+            });
+
+            $("#save").click(function () {
+                var data = {
+                    Id: $("#n_id").val(),
+                    Email: $("#n_email").val(),
+                    Name: $("#n_name").val()
+                };
+
+                vm.push(data);
+
+                $("#n_id").val("");
+                $("#n_email").val("");
+                $("#n_name").val("");
+
+                $("#n").hide(200);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/attendee",
+                    data: data,
+                    success: function () {
+                        alert("saved");
+                    }
+                });
+            });
+
+            $("#test").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/attendee/child"
+                });
+            })
         });
     </script>
 }

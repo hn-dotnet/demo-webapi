@@ -23,12 +23,8 @@ namespace WebApplication1.Controllers
         // GET api/<controller>
         public IEnumerable<AttendeeModel> Get()
         {
-            //return this.db.Attendees.ToList
-
-            return new List<AttendeeModel>()
-            {
-                new AttendeeModel() { Id = Guid.NewGuid(), Email = "jonathan.guenz@outlook.com", Name = "Jonathan Günz"  }
-            };
+            return this.db.Attendees.ToList();
+            
         }
 
         // GET api/<controller>/5
@@ -38,8 +34,13 @@ namespace WebApplication1.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]AttendeeModel value)
         {
+            if (ModelState.IsValid)
+            {
+                this.db.Attendees.Add(value);
+                this.db.SaveChanges();
+            }
         }
 
         // PUT api/<controller>/5
@@ -51,5 +52,14 @@ namespace WebApplication1.Controllers
         public void Delete(int id)
         {
         }
+
+        [Route("api/attendee/child")]
+        [HttpGet]
+        public string PostChild()
+        {
+            return "Hallo Welt";
+        }
+
+
     }
 }
